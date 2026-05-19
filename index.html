@@ -1,0 +1,2115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Life at Smartick Indonesia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --blue-primary: #4db8e8;
+      --blue-dark: #2a8fbf;
+      --blue-deeper: #1a6a96;
+      --blue-light: #d0eef8;
+      --blue-pale: #eaf6fd;
+      --white: #ffffff;
+      --gray-50: #f8fafc;
+      --gray-100: #f1f5f9;
+      --gray-200: #e2e8f0;
+      --gray-300: #cbd5e1;
+      --gray-500: #64748b;
+      --gray-600: #475569;
+      --gray-700: #334155;
+      --gray-800: #1e293b;
+      --gray-900: #0f172a;
+      --accent-green: #22c55e;
+      --accent-orange: #f97316;
+      --accent-red: #ef4444;
+      --accent-purple: #a855f7;
+      --radius: 12px;
+      --radius-lg: 20px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-md: 0 4px 16px rgba(77,184,232,0.12);
+      --shadow-lg: 0 8px 32px rgba(77,184,232,0.18);
+      --transition: 0.2s cubic-bezier(0.4,0,0.2,1);
+      --sidebar-width: 260px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--gray-50);
+      color: var(--gray-800);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ─── SIDEBAR ─────────────────────────────── */
+    .sidebar {
+      position: fixed;
+      top: 0; left: 0;
+      width: var(--sidebar-width);
+      height: 100vh;
+      background: var(--gray-900);
+      display: flex;
+      flex-direction: column;
+      z-index: 100;
+      overflow-y: auto;
+      transition: transform var(--transition);
+    }
+
+    .sidebar-logo {
+      padding: 24px 20px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .sidebar-logo img {
+      width: 160px;
+      display: block;
+    }
+
+    .sidebar-logo-text {
+      font-family: 'Nunito', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--blue-primary);
+      margin-top: 10px;
+    }
+
+    .sidebar-section {
+      padding: 20px 16px 8px;
+    }
+
+    .sidebar-section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gray-500);
+      margin-bottom: 6px;
+      padding: 0 8px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all var(--transition);
+      color: var(--gray-300);
+      font-size: 13.5px;
+      font-weight: 500;
+      text-decoration: none;
+      margin-bottom: 2px;
+    }
+
+    .nav-item:hover {
+      background: rgba(77,184,232,0.1);
+      color: var(--white);
+    }
+
+    .nav-item.active {
+      background: rgba(77,184,232,0.15);
+      color: var(--blue-primary);
+      font-weight: 600;
+    }
+
+    .nav-item .nav-icon {
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .nav-sub {
+      padding-left: 20px;
+    }
+
+    .nav-sub .nav-item {
+      font-size: 12.5px;
+      padding: 7px 12px;
+    }
+
+    /* ─── MAIN ────────────────────────────────── */
+    .main {
+      margin-left: var(--sidebar-width);
+      min-height: 100vh;
+    }
+
+    /* ─── TOPBAR ──────────────────────────────── */
+    .topbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .topbar-breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--gray-500);
+    }
+
+    .topbar-breadcrumb .current {
+      color: var(--gray-800);
+      font-weight: 600;
+    }
+
+    .topbar-meta {
+      font-size: 12px;
+      color: var(--gray-500);
+    }
+
+    /* ─── PAGE CONTENT ────────────────────────── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    .page-inner {
+      padding: 40px 40px 80px;
+      max-width: 1100px;
+    }
+
+    /* ─── HERO ────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--gray-900) 0%, #0f2a3d 100%);
+      padding: 56px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -40px; right: -40px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(77,184,232,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      background: rgba(77,184,232,0.2);
+      color: var(--blue-primary);
+      border: 1px solid rgba(77,184,232,0.4);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 12px;
+    }
+
+    .hero h1 span { color: var(--blue-primary); }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--gray-300);
+      max-width: 500px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    /* ─── QUICK LINKS ─────────────────────────── */
+    .quick-links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .quick-link-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius);
+      padding: 16px;
+      cursor: pointer;
+      transition: all var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .quick-link-card:hover {
+      background: rgba(77,184,232,0.15);
+      border-color: rgba(77,184,232,0.4);
+      transform: translateY(-2px);
+    }
+
+    .ql-icon {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: rgba(77,184,232,0.2);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .ql-text strong {
+      display: block;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .ql-text span {
+      font-size: 11px;
+      color: var(--gray-400);
+    }
+
+    /* ─── SECTION HEADER ──────────────────────── */
+    .section-header {
+      margin-bottom: 28px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      background: var(--blue-pale);
+      color: var(--blue-dark);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 100px;
+      margin-bottom: 10px;
+    }
+
+    .section-header h2 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--gray-900);
+      margin-bottom: 6px;
+    }
+
+    .section-header p {
+      font-size: 14px;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+
+    /* ─── CARDS ───────────────────────────────── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      transition: all var(--transition);
+      cursor: pointer;
+    }
+
+    .card:hover {
+      border-color: var(--blue-primary);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-2px);
+    }
+
+    .card-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      margin-bottom: 14px;
+    }
+
+    .card h3 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--gray-900);
+      margin-bottom: 6px;
+    }
+
+    .card p {
+      font-size: 13px;
+      color: var(--gray-500);
+      line-height: 1.5;
+    }
+
+    .card-arrow {
+      margin-top: 16px;
+      color: var(--blue-primary);
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ─── FLOWCHART ───────────────────────────── */
+    .flowchart-wrapper {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 32px;
+    }
+
+    .flowchart-header {
+      background: var(--gray-900);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .flowchart-header h3 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .flowchart-header .fh-sub {
+      font-size: 12px;
+      color: var(--gray-400);
+      margin-left: auto;
+    }
+
+    .flowchart-body {
+      padding: 32px 24px;
+      overflow-x: auto;
+    }
+
+    /* Vertical flowchart */
+    .flow {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      min-width: 600px;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
+      width: 100%;
+      position: relative;
+    }
+
+    .flow-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 48px;
+      flex-shrink: 0;
+    }
+
+    .flow-num {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--blue-primary);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      z-index: 1;
+      position: relative;
+    }
+
+    .flow-line {
+      width: 2px;
+      flex: 1;
+      background: var(--gray-200);
+      min-height: 20px;
+    }
+
+    .flow-content {
+      flex: 1;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin: 0 0 0 16px;
+      margin-bottom: 8px;
+      transition: all var(--transition);
+    }
+
+    .flow-content:hover {
+      border-color: var(--blue-primary);
+      background: var(--blue-pale);
+    }
+
+    .flow-content h4 {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 4px;
+    }
+
+    .flow-content p {
+      font-size: 12.5px;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+
+    .flow-meta {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 100px;
+    }
+
+    .badge-blue { background: var(--blue-light); color: var(--blue-dark); }
+    .badge-green { background: #dcfce7; color: #15803d; }
+    .badge-orange { background: #ffedd5; color: #c2410c; }
+    .badge-gray { background: var(--gray-100); color: var(--gray-600); }
+    .badge-purple { background: #f3e8ff; color: #7e22ce; }
+    .badge-red { background: #fee2e2; color: #991b1b; }
+
+    /* ─── TABLE ───────────────────────────────── */
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--gray-200);
+      margin-bottom: 24px;
+    }
+
+    .info-table th {
+      background: var(--gray-900);
+      color: var(--white);
+      font-weight: 700;
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+    }
+
+    .info-table td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--gray-100);
+      color: var(--gray-700);
+      vertical-align: top;
+      line-height: 1.5;
+    }
+
+    .info-table tr:last-child td { border-bottom: none; }
+    .info-table tr:hover td { background: var(--blue-pale); }
+
+    /* ─── ALERT BOX ───────────────────────────── */
+    .alert {
+      border-radius: var(--radius);
+      padding: 14px 18px;
+      margin-bottom: 20px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .alert-info { background: var(--blue-pale); border-left: 4px solid var(--blue-primary); }
+    .alert-warn { background: #fff7ed; border-left: 4px solid var(--accent-orange); }
+    .alert-tip { background: #f0fdf4; border-left: 4px solid var(--accent-green); }
+
+    .alert-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+    .alert-text { font-size: 13px; color: var(--gray-700); line-height: 1.6; }
+    .alert-text strong { color: var(--gray-900); display: block; margin-bottom: 2px; }
+
+    /* ─── TABS ────────────────────────────────── */
+    .tabs {
+      display: flex;
+      gap: 4px;
+      border-bottom: 2px solid var(--gray-200);
+      margin-bottom: 28px;
+    }
+
+    .tab-btn {
+      padding: 10px 18px;
+      border: none;
+      background: none;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--gray-500);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all var(--transition);
+      border-radius: 6px 6px 0 0;
+    }
+
+    .tab-btn:hover { color: var(--blue-dark); }
+    .tab-btn.active { color: var(--blue-primary); border-bottom-color: var(--blue-primary); }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ─── LINKS GRID ──────────────────────────── */
+    .links-section {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .links-section h3 {
+      font-family: 'Nunito', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--gray-900);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+    }
+
+    .link-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: var(--gray-700);
+      font-size: 13px;
+      font-weight: 500;
+      transition: all var(--transition);
+    }
+
+    .link-item:hover {
+      background: var(--blue-pale);
+      border-color: var(--blue-primary);
+      color: var(--blue-dark);
+    }
+
+    .link-icon { font-size: 15px; flex-shrink: 0; }
+
+    /* ─── MOBILE TOGGLE ───────────────────────── */
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      color: var(--gray-700);
+      font-size: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; }
+      .menu-toggle { display: block; }
+      .page-inner { padding: 24px 20px 60px; }
+      .hero { padding: 32px 20px; }
+      .hero h1 { font-size: 28px; }
+      .quick-links-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* ─── DIVIDER ─────────────────────────────── */
+    .divider {
+      height: 1px;
+      background: var(--gray-200);
+      margin: 32px 0;
+    }
+
+    /* ─── COLLAPSIBLE ─────────────────────────── */
+    .collapsible {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+
+    .collapsible-trigger {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      cursor: pointer;
+      user-select: none;
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--gray-800);
+      transition: background var(--transition);
+    }
+
+    .collapsible-trigger:hover { background: var(--blue-pale); }
+
+    .collapsible-arrow {
+      margin-left: auto;
+      transition: transform var(--transition);
+    }
+
+    .collapsible.open .collapsible-arrow { transform: rotate(90deg); }
+
+    .collapsible-body {
+      display: none;
+      padding: 0 20px 20px;
+      font-size: 13px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    .collapsible.open .collapsible-body { display: block; }
+
+    /* Smartick S logo SVG inline */
+    .smartick-s {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 900;
+      font-size: 18px;
+      color: var(--blue-primary);
+      background: rgba(77,184,232,0.15);
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .page-title-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── SIDEBAR ─────────────────────────────── -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <!-- Smartick Indonesia logo rendered as styled text since images are in context only -->
+    <div style="display:flex;align-items:center;gap:10px;">
+      <div style="background:var(--blue-primary);width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:'Nunito',sans-serif;font-weight:900;font-size:20px;color:white;">S</span>
+      </div>
+      <div>
+        <div style="font-family:'Nunito',sans-serif;font-weight:900;font-size:16px;color:white;line-height:1.1;">Smartick</div>
+        <div style="font-size:11px;color:var(--gray-400);font-weight:500;">Indonesia</div>
+      </div>
+    </div>
+    <div class="sidebar-logo-text" style="margin-top:12px;">Life at Smartick</div>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">Overview</div>
+    <a class="nav-item active" onclick="showPage('home', this)">
+      <span class="nav-icon">🏠</span> Home
+    </a>
+    <a class="nav-item" onclick="showPage('links', this)">
+      <span class="nav-icon">🔗</span> Link Penting
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">SOP HRGA</div>
+    <a class="nav-item" onclick="showPage('sop-hiring', this)">
+      <span class="nav-icon">👥</span> Hiring
+    </a>
+    <a class="nav-item" onclick="showPage('sop-onboarding', this)">
+      <span class="nav-icon">🚀</span> Onboarding
+    </a>
+    <a class="nav-item" onclick="showPage('sop-dokumen', this)">
+      <span class="nav-icon">📄</span> Surat & Dokumen
+    </a>
+  </div>
+
+  <div class="sidebar-section">
+    <div class="sidebar-section-label">SOP Finance</div>
+    <a class="nav-item" onclick="showPage('sop-refund', this)">
+      <span class="nav-icon">↩️</span> Refund
+    </a>
+    <a class="nav-item" onclick="showPage('sop-reimbursement', this)">
+      <span class="nav-icon">💸</span> Reimbursement
+    </a>
+    <a class="nav-item" onclick="showPage('sop-procurement', this)">
+      <span class="nav-icon">🛒</span> Procurement
+    </a>
+    <a class="nav-item" onclick="showPage('sop-invoice', this)">
+      <span class="nav-icon">🧾</span> Invoice Vendor
+    </a>
+    <a class="nav-item" onclick="showPage('sop-payroll', this)">
+      <span class="nav-icon">💰</span> Payroll
+    </a>
+  </div>
+
+  <div style="padding:16px;margin-top:auto;border-top:1px solid rgba(255,255,255,0.07);">
+    <div style="font-size:11px;color:var(--gray-500);line-height:1.6;">
+      PT Tumbuh Cerdas Bestari<br>
+      <span style="color:var(--gray-600);">Diperbarui: 7 Apr 2026</span>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── MAIN ────────────────────────────────── -->
+<div class="main">
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:12px;">
+      <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+      <div class="topbar-breadcrumb">
+        <span>Life at Smartick</span>
+        <span>›</span>
+        <span class="current" id="breadcrumb-current">Home</span>
+      </div>
+    </div>
+    <div class="topbar-meta">Internal Wiki · v1.0</div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE: HOME
+  ═══════════════════════════════════════════ -->
+  <div class="page active" id="page-home">
+    <div class="hero">
+      <div class="hero-inner">
+        <div class="hero-tag">Internal Wiki</div>
+        <h1>Life at <span>Smartick</span> Indonesia 👋</h1>
+        <p class="hero-sub">Semua yang lo butuhkan soal cara kerja di sini: SOP, link penting, alur proses — tersusun rapi biar gampang dicari.</p>
+
+        <div style="margin-bottom:12px;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-500);">Quick Access</div>
+        <div class="quick-links-grid">
+          <a class="quick-link-card" onclick="showPage('links', document.querySelector('[onclick*=links]'))">
+            <div class="ql-icon">🔗</div>
+            <div class="ql-text"><strong>Link Penting</strong><span>ClickUp, Form, Drive</span></div>
+          </a>
+          <a class="quick-link-card" onclick="showPage('sop-hiring', document.querySelector('[onclick*=hiring]'))">
+            <div class="ql-icon">👥</div>
+            <div class="ql-text"><strong>SOP Hiring</strong><span>Full-time & Freelance</span></div>
+          </a>
+          <a class="quick-link-card" onclick="showPage('sop-onboarding', document.querySelector('[onclick*=onboarding]'))">
+            <div class="ql-icon">🚀</div>
+            <div class="ql-text"><strong>Onboarding</strong><span>Hari pertama masuk</span></div>
+          </a>
+          <a class="quick-link-card" onclick="showPage('sop-reimbursement', document.querySelector('[onclick*=reimbursement]'))">
+            <div class="ql-icon">💸</div>
+            <div class="ql-text"><strong>Reimburse</strong><span>Klaim biaya kantor</span></div>
+          </a>
+          <a class="quick-link-card" onclick="showPage('sop-refund', document.querySelector('[onclick*=refund]'))">
+            <div class="ql-icon">↩️</div>
+            <div class="ql-text"><strong>Refund</strong><span>Proses refund subscriber</span></div>
+          </a>
+          <a class="quick-link-card" onclick="showPage('sop-payroll', document.querySelector('[onclick*=payroll]'))">
+            <div class="ql-icon">💰</div>
+            <div class="ql-text"><strong>Payroll</strong><span>Gaji & slip bulanan</span></div>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="page-inner">
+      <div class="section-header">
+        <div class="section-tag">Semua SOP</div>
+        <h2>Dokumen Operasional</h2>
+        <p>Pilih kategori untuk lihat SOP lengkap beserta flowchart-nya.</p>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(this, 'tab-hrga')">🏢 HRGA</button>
+        <button class="tab-btn" onclick="switchTab(this, 'tab-finance')">💳 Finance</button>
+      </div>
+
+      <div class="tab-content active" id="tab-hrga">
+        <div class="cards-grid">
+          <div class="card" onclick="showPage('sop-hiring', null)">
+            <div class="card-icon" style="background:#dbeafe;">👥</div>
+            <h3>SOP Hiring</h3>
+            <p>Alur rekrutmen karyawan tetap dan freelance, mulai dari request manpower hingga onboarding.</p>
+            <div class="card-arrow">Lihat SOP →</div>
+          </div>
+          <div class="card" onclick="showPage('sop-onboarding', null)">
+            <div class="card-icon" style="background:#dcfce7;">🚀</div>
+            <h3>SOP Onboarding</h3>
+            <p>Proses penyambutan karyawan baru: orientasi, administrasi BPJS, dan perkenalan tim.</p>
+            <div class="card-arrow">Lihat SOP →</div>
+          </div>
+          <div class="card" onclick="showPage('sop-dokumen', null)">
+            <div class="card-icon" style="background:#fef3c7;">📄</div>
+            <h3>SOP Surat & Dokumen</h3>
+            <p>Request, pembuatan, approval, dan pengiriman dokumen internal maupun eksternal.</p>
+            <div class="card-arrow">Lihat SOP →</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-finance">
+        <div class="cards-grid">
+          <div class="card" onclick="showPage('sop-refund', null)">
+            <div class="card-icon" style="background:#fee2e2;">↩️</div>
+            <h3>SOP Refund</h3>
+            <p>Proses pengembalian dana pelanggan: syarat, validasi, approval, hingga transfer.</p>
+            <div class="card-arrow">Lihat SOP →</div>
+          </div>
+          <div class="card" onclick="showPage('sop-reimbursement', null)">
+            <div class="card-icon" style="background:#ffedd5;">💸</div>
+            <h3>SOP Reimbursement</h3>
+            <p>Klaim biaya operasional karyawan dengan batas 7 hari setelah transaksi.</p>
+            <div class="card-arrow">Lihat SOP →</div>
+          </div>
+          <div class="card" onclick="showPage('sop-procurement', null)">
+            <div class="card-icon" style="background:#f3e8ff;">🛒</div>
+            <h3>SOP Procurement</h3>
+            <p>Pengadaan barang dan jasa: budgeting, vendor review, pembelian, dan audit.</p>
+            <div class="card-arrow">Lihat SOP →</div>
+          </div>
+          <div class="card" onclick="showPage('sop-invoice', null)">
+            <div class="card-icon" style="background:#ecfdf5;">🧾</div>
+            <h3>SOP Invoice Vendor</h3>
+            <p>Pembayaran invoice jasa & sewa dengan penghitungan pajak PPh yang benar.</p>
+            <div class="card-arrow">Lihat SOP →</div>
+          </div>
+          <div class="card" onclick="showPage('sop-payroll', null)">
+            <div class="card-icon" style="background:#dbeafe;">💰</div>
+            <h3>SOP Payroll</h3>
+            <p>Siklus penggajian bulanan: lembur, perhitungan, slip gaji, dan pencatatan akuntansi.</p>
+            <div class="card-arrow">Lihat SOP →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE: LINK PENTING
+  ═══════════════════════════════════════════ -->
+  <div class="page" id="page-links">
+    <div class="page-inner">
+      <div class="section-header">
+        <div class="section-tag">Quick Access</div>
+        <h2>🔗 Link Penting</h2>
+        <p>Semua link yang sering dibutuhkan, dikumpulkan di satu tempat.</p>
+      </div>
+
+      <div class="alert alert-info">
+        <div class="alert-icon">ℹ️</div>
+        <div class="alert-text"><strong>Tips</strong>Bookmark halaman ini di browser biar gampang diakses kapan aja.</div>
+      </div>
+
+      <div class="links-section">
+        <h3>👥 Hiring & HR</h3>
+        <div class="links-grid">
+          <a class="link-item" href="mailto:hiring@smartick.id">
+            <span class="link-icon">📧</span> hiring@smartick.id
+          </a>
+          <a class="link-item" href="https://forms.gle/eHuV1ZerEcZ6Ry566" target="_blank">
+            <span class="link-icon">📋</span> Form Kandidat
+          </a>
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">📊</span> Database Kandidat
+          </a>
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">📝</span> Form Pengisian Data Diri
+          </a>
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">📋</span> Form Recruit
+          </a>
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">⏱️</span> Form Lembur
+          </a>
+        </div>
+      </div>
+
+      <div class="links-section">
+        <h3>📋 Project Management</h3>
+        <div class="links-grid">
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">✅</span> ClickUp — Request Dokumen
+          </a>
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">✅</span> ClickUp — Workshop SOP Tracker
+          </a>
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">📊</span> Procurement Spreadsheet
+          </a>
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">📊</span> Data Karyawan (Employee DB)
+          </a>
+        </div>
+      </div>
+
+      <div class="links-section">
+        <h3>💳 Finance & Administrasi</h3>
+        <div class="links-grid">
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">💳</span> Monit (Pembayaran)
+          </a>
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">🏦</span> BNI Direct
+          </a>
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">📋</span> Form Refund
+          </a>
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">📋</span> Form Reimbursement
+          </a>
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">🌐</span> eDabu (BPJS Kesehatan)
+          </a>
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">🌐</span> SIPP (BPJS TK)
+          </a>
+        </div>
+      </div>
+
+      <div class="links-section">
+        <h3>🔐 Legal & Compliance</h3>
+        <div class="links-grid">
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">✍️</span> Privy (e-Signature)
+          </a>
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">📑</span> Template Kontrak PKWT
+          </a>
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">📑</span> Template Kontrak Freelance
+          </a>
+          <a class="link-item" href="#" target="_blank">
+            <span class="link-icon">📑</span> Template MOU/PKS
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE: SOP HIRING
+  ═══════════════════════════════════════════ -->
+  <div class="page" id="page-sop-hiring">
+    <div class="page-inner">
+      <div class="section-header">
+        <div class="section-tag">SOP HRGA</div>
+        <h2>👥 SOP Hiring</h2>
+        <p>Rekrutmen karyawan tetap (Full-Time) dan freelance. PIC utama: HR.</p>
+      </div>
+
+      <div class="alert alert-info">
+        <div class="alert-icon">📧</div>
+        <div class="alert-text"><strong>Email Rekrutmen: hiring@smartick.id</strong>Kandidat mendaftar via email ini atau form: <a href="https://forms.gle/eHuV1ZerEcZ6Ry566" target="_blank" style="color:var(--blue-dark);">forms.gle/eHuV1ZerEcZ6Ry566</a></div>
+      </div>
+
+      <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab(this, 'hiring-ft')">👤 Full-Time</button>
+        <button class="tab-btn" onclick="switchTab(this, 'hiring-fl')">🔧 Freelance</button>
+      </div>
+
+      <!-- FULL TIME -->
+      <div class="tab-content active" id="hiring-ft">
+        <div class="flowchart-wrapper">
+          <div class="flowchart-header">
+            <span style="font-size:18px;">👤</span>
+            <h3>Alur Hiring — Full-Time</h3>
+            <span class="fh-sub">16 langkah</span>
+          </div>
+          <div class="flowchart-body">
+            <div class="flow">
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Request Manpower</h4>
+                  <p>User menyusun job description mencakup role, tanggung jawab, kualifikasi, dan target hiring date.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: User</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Publikasi</h4>
+                  <p>Job description dipublikasikan melalui sosial media Smartick Indonesia.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: Marketing/HR</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Pengumpulan Kandidat</h4>
+                  <p>Kandidat mendaftar via <strong>hiring@smartick.id</strong> atau Google Form.</p>
+                  <div class="flow-meta"><span class="badge badge-gray">PIC: Kandidat</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Shortlisting Tahap 1</h4>
+                  <p>User melakukan seleksi awal berdasarkan CV/portofolio.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: User</span><span class="badge badge-gray">Form Recruit</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">5</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Kontak Kandidat</h4>
+                  <p>Kandidat yang lolos dihubungi untuk proses selanjutnya menggunakan template email.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: HR</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">6</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Penugasan / Interview Tahap 1</h4>
+                  <p>Kandidat diberikan assignment atau langsung interview — fleksibel sesuai kebutuhan role.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: User & HR</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">7</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Evaluasi Tahap 1</h4>
+                  <p>User menilai hasil interview/assignment dan memasukkan ke database kandidat.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: User</span><span class="badge badge-gray">Form Recruit</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">8</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Pemilihan Kandidat</h4>
+                  <p>User menentukan kandidat terpilih.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: User</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">9</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Penetapan Salary</h4>
+                  <p>Gaji ditentukan berdasarkan expected salary kandidat, benchmark industri, dan budget internal. Harus mempertimbangkan struktur gaji Smartick.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: HR + Hiring Manager</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">10</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Diskusi jika Melebihi Budget</h4>
+                  <p>Jika expected salary di atas budget, dilakukan diskusi penyesuaian (bisa ubah level/scope/offer).</p>
+                  <div class="flow-meta"><span class="badge badge-orange">Kondisional</span><span class="badge badge-blue">PIC: HR + Hiring Manager</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">11</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Approval Salary</h4>
+                  <p>Hasil penawaran disampaikan ke Bu Galih untuk disetujui atau ditolak.</p>
+                  <div class="flow-meta"><span class="badge badge-purple">PIC: Bu Galih</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">12</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Offering</h4>
+                  <p>HR mengirimkan surat penawaran kerja berisi kompensasi & benefit.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: HR</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">13</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Negosiasi & Konfirmasi</h4>
+                  <p>Diskusi penawaran hingga kandidat menyetujui. Harus ada konfirmasi tertulis.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: HR + Kandidat</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">14</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Pengisian Data Diri</h4>
+                  <p>Kandidat mengisi form data untuk keperluan administrasi.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: HR</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">15</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Pengiriman Kontrak</h4>
+                  <p>HR mengirimkan kontrak kerja. Batas waktu: maksimal H-7 atau H-1 sebelum onboarding.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: HR</span><span class="badge badge-orange">Deadline: H-7 atau H-1</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num" style="background:var(--accent-green);">16</div></div>
+                <div class="flow-content" style="border-color:var(--accent-green);">
+                  <h4>✅ Onboarding</h4>
+                  <p>Proses onboarding dilakukan oleh user: perkenalan role & pekerjaan.</p>
+                  <div class="flow-meta"><span class="badge badge-green">PIC: User (Hiring Manager)</span><span class="badge badge-gray">→ Lihat SOP Onboarding</span></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FREELANCE -->
+      <div class="tab-content" id="hiring-fl">
+        <div class="alert alert-info" style="margin-bottom:16px;">
+          <div class="alert-icon">📌</div>
+          <div class="alert-text">
+            <strong>Jenis Freelance</strong>
+            <strong style="margin-top:6px;display:block;">Freelance Project</strong> Berdasarkan project tertentu, ada jangka waktu. Output: deliverables/hasil project.<br>
+            <strong style="margin-top:6px;display:block;">Freelance Bulanan</strong> Berbasis waktu (bulanan), ongoing. Output: jobdesc + target kerja periodik.
+          </div>
+        </div>
+
+        <div class="alert alert-warn">
+          <div class="alert-icon">🧾</div>
+          <div class="alert-text">
+            <strong>Ketentuan Pajak Freelance</strong>
+            Freelance Bulanan: PPh 21 Upah Pegawai Tidak Tetap Bulanan 0% &nbsp;|&nbsp; Freelance Project: PPh 21 Tenaga Ahli/Jasa 2,5% ditanggung perusahaan. Kompensasi di kontrak bersifat gross.
+          </div>
+        </div>
+
+        <div class="flowchart-wrapper">
+          <div class="flowchart-header">
+            <span style="font-size:18px;">🔧</span>
+            <h3>Alur Hiring — Freelance</h3>
+            <span class="fh-sub">10 langkah</span>
+          </div>
+          <div class="flowchart-body">
+            <div class="flow">
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Request Manpower</h4>
+                  <p>PM/User mengajukan kebutuhan freelance. Wajib menyertakan Scope of Work, kebutuhan, durasi, dan definisi target (meskipun bulanan).</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: PM / User</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Hiring (Internal atau Eksternal)</h4>
+                  <p><strong>Internal:</strong> Rekomendasi dari database → Penawaran → Kontrak.<br><strong>Eksternal:</strong> Desain/Publikasi → Shortlist → Interview & Penugasan → Penawaran → Kontrak.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: HR / Marketing / User</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Briefing Awal</h4>
+                  <p>Penjelasan scope kerja, target, dan ekspektasi output.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: PM / User</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Input Data Freelance</h4>
+                  <p>Data dicatat dalam database karyawan Smartick Indonesia. Wajib menyertakan NIK.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: HR</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">5</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Pelaksanaan Kerja</h4>
+                  <p>Freelance mulai bekerja sesuai tanggal yang tertera pada kontrak.</p>
+                  <div class="flow-meta"><span class="badge badge-gray">PIC: Freelance</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">6</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Monitoring Progress</h4>
+                  <p>Monitoring berkala: weekly meeting, update ClickUp/Tracker.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: PM / User</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">7</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Evaluasi Output</h4>
+                  <p><strong>Bulanan:</strong> Penilaian tiap bulan oleh User, user tentukan perpanjangan atau berhenti.<br><strong>Project:</strong> Penilaian di akhir project. Approval jadi dasar pembayaran.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: User/PM & HR</span><span class="badge badge-orange">Project: based on deliverable</span><span class="badge badge-gray">Bulanan: based on target</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">8</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Konfirmasi Penyelesaian</h4>
+                  <p>PM/User menyatakan pekerjaan selesai / periode selesai.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: PM / User</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num">9</div><div class="flow-line"></div></div>
+                <div class="flow-content">
+                  <h4>Pengajuan Pembayaran</h4>
+                  <p>Pengajuan ke Finance. Gaji freelance mengikuti payroll tanggal 25. Menyertakan kontrak dan data diri freelance.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: HR</span><span class="badge badge-orange">Tanggal 25</span></div>
+                </div>
+              </div>
+
+              <div class="flow-step">
+                <div class="flow-left"><div class="flow-num" style="background:var(--accent-green);">10</div></div>
+                <div class="flow-content" style="border-color:var(--accent-green);">
+                  <h4>✅ Pembayaran</h4>
+                  <p>Finance melakukan pembayaran dan pembuatan bukti potong.</p>
+                  <div class="flow-meta"><span class="badge badge-blue">PIC: Finance</span></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE: SOP ONBOARDING
+  ═══════════════════════════════════════════ -->
+  <div class="page" id="page-sop-onboarding">
+    <div class="page-inner">
+      <div class="section-header">
+        <div class="section-tag">SOP HRGA</div>
+        <h2>🚀 SOP Onboarding</h2>
+        <p>Proses penyambutan karyawan baru — dimulai setelah kontrak ditandatangani.</p>
+      </div>
+
+      <div class="alert alert-tip">
+        <div class="alert-icon">✅</div>
+        <div class="alert-text"><strong>BPJS aktif ±2 minggu setelah hari pertama kerja.</strong> Informasikan ke karyawan baru di sesi 1:1 hari pertama.</div>
+      </div>
+
+      <div class="flowchart-wrapper">
+        <div class="flowchart-header">
+          <span style="font-size:18px;">🚀</span>
+          <h3>Alur Onboarding Karyawan Baru</h3>
+          <span class="fh-sub">10 langkah</span>
+        </div>
+        <div class="flowchart-body">
+          <div class="flow">
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Penjadwalan Onboarding</h4>
+                <p>HR menjadwalkan sesi onboarding dengan Lead Divisi dan pihak terkait. Dilakukan setelah kontrak ditandatangani.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: HR</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Onboarding oleh Lead Divisi</h4>
+                <p>Lead Divisi menjelaskan pekerjaan, role, dan jobdesc detail. Termasuk target/ekspektasi kerja dan cara kerja tim.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Lead Division / Hiring Manager</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Onboarding Budaya & Perusahaan</h4>
+                <p>Pengenalan visi, misi Smartick, nilai dan budaya kerja, serta cara komunikasi & kolaborasi tim.</p>
+                <div class="flow-meta"><span class="badge badge-purple">PIC: Bu Galih</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Koordinasi Administrasi BPJS</h4>
+                <p>HR berkoordinasi dengan Finance untuk pendaftaran BPJS.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: HR</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">5</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Pendaftaran BPJS</h4>
+                <p>Pendaftaran BPJS Ketenagakerjaan dan BPJS Kesehatan. Estimasi aktif ±2 minggu setelah hari pertama kerja.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance</span><span class="badge badge-orange">Aktif ±2 minggu</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">6</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Sesi 1:1 dengan Tim Terkait</h4>
+                <p>Karyawan baru melakukan perkenalan & diskusi dengan rekan kerja, termasuk peer yang sering bekerja sama.</p>
+                <div class="flow-meta"><span class="badge badge-gray">PIC: Karyawan Baru + Tim</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">7</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Sesi 1:1 dengan HR & Finance</h4>
+                <p>Penjelasan kebijakan administratif. Wajib mencakup informasi cuti & BPJS.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: HR + Finance</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">8</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Penyampaian Informasi Cuti</h4>
+                <p>Penjelasan kebijakan cuti karyawan, termasuk masa berlaku cuti.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: HR</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">9</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Penyampaian Informasi BPJS</h4>
+                <p>Penjelasan terkait aktivasi BPJS — aktif ±2 minggu setelah join.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: HR</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num" style="background:var(--accent-green);">10</div></div>
+              <div class="flow-content" style="border-color:var(--accent-green);">
+                <h4>✅ Onboarding Selesai</h4>
+                <p>Proses onboarding dinyatakan selesai oleh HR.</p>
+                <div class="flow-meta"><span class="badge badge-green">PIC: HR</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE: SOP DOKUMEN
+  ═══════════════════════════════════════════ -->
+  <div class="page" id="page-sop-dokumen">
+    <div class="page-inner">
+      <div class="section-header">
+        <div class="section-tag">SOP HRGA</div>
+        <h2>📄 SOP Surat & Dokumen</h2>
+        <p>Alur request, pembuatan, approval, dan pengiriman seluruh jenis dokumen internal Smartick.</p>
+      </div>
+
+      <div class="alert alert-info">
+        <div class="alert-icon">📋</div>
+        <div class="alert-text"><strong>Cara Request Dokumen</strong>Semua request dokumen dilakukan melalui ClickUp. Pastikan isi semua informasi yang diperlukan agar tidak ada delay.</div>
+      </div>
+
+      <div class="links-section" style="margin-bottom:24px;">
+        <h3>📑 Jenis Dokumen</h3>
+        <table class="info-table">
+          <thead>
+            <tr><th>#</th><th>Jenis Surat</th><th>SOP Terkait</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1–5</td><td>Surat Penawaran Kerja, Kontrak, SPK FL, SPK Intern, SPK KOL</td><td><span class="badge badge-blue">→ SOP Hiring</span></td></tr>
+            <tr><td>6–7</td><td>Surat Penawaran Kerja Sama (Proposal), Perjanjian Kerja Sama</td><td><span class="badge badge-purple">→ SOP BD & Partnerships</span></td></tr>
+            <tr><td>8–10</td><td>Surat Pernyataan, Surat Kuasa, Surat Permohonan</td><td><span class="badge badge-gray">Umum</span></td></tr>
+            <tr><td>11–13</td><td>Bukti Pembayaran, Invoice, Referensi Pajak</td><td><span class="badge badge-green">→ SOP Finance</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flowchart-wrapper">
+        <div class="flowchart-header">
+          <span style="font-size:18px;">📄</span>
+          <h3>Alur Pengelolaan Surat & Dokumen</h3>
+          <span class="fh-sub">5 langkah</span>
+        </div>
+        <div class="flowchart-body">
+          <div class="flow">
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Request via ClickUp</h4>
+                <p>Pengaju mengisi task di ClickUp dengan: (1) Jenis Surat, (2) Tujuan Institusi, (3) Tujuan Orang, (4) Detail informasi surat, (5) Target Tanggal Pengiriman.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Pengaju (User)</span><span class="badge badge-gray">Platform: ClickUp</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Pembuatan Dokumen</h4>
+                <p>Dokumen dibuat berdasarkan informasi yang diajukan, sesuai SLA tiap jenis surat.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Septi (HRGA)</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Approval & Penandatanganan</h4>
+                <p>Dokumen diapprove dan ditandatangani via Privy atau tanda tangan langsung. SLA: 1–2 hari kerja.</p>
+                <div class="flow-meta"><span class="badge badge-purple">PIC: Barry / Bu Galih / Wai / Hadi</span><span class="badge badge-orange">SLA: 1–2 hari</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Penyerahan ke User</h4>
+                <p>Dokumen selesai diserahkan kembali ke user melalui task di ClickUp yang dibuat saat request. SLA: 1 hari.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Septi</span><span class="badge badge-orange">SLA: 1 hari</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num" style="background:var(--accent-green);">5</div></div>
+              <div class="flow-content" style="border-color:var(--accent-green);">
+                <h4>✅ Pengiriman Dokumen</h4>
+                <p>Dokumen dikirimkan ke tujuan oleh user atau HRGA (sesuai kesepakatan). Jika HRGA yang kirim, wajib sertakan: email pengirim, body email, dan alamat tujuan. SLA: 1–7 hari.</p>
+                <div class="flow-meta"><span class="badge badge-green">SLA: 1–7 hari</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="section-header" style="margin-top:8px;">
+        <h2 style="font-size:20px;">Siapa yang Menandatangani?</h2>
+      </div>
+      <table class="info-table">
+        <thead><tr><th>Jenis Dokumen</th><th>Penandatangan</th></tr></thead>
+        <tbody>
+          <tr><td>Dokumen terkait divisi tertentu</td><td>Lead divisi masing-masing</td></tr>
+          <tr><td>Dokumen terkait perusahaan secara keseluruhan</td><td>Bu Galih</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE: SOP REFUND
+  ═══════════════════════════════════════════ -->
+  <div class="page" id="page-sop-refund">
+    <div class="page-inner">
+      <div class="section-header">
+        <div class="section-tag">SOP Finance</div>
+        <h2>↩️ SOP Refund Subscriptions</h2>
+        <p>Pengembalian dana pelanggan secara akurat, transparan, dan tepat waktu. SLA total: maks. 3 hari kerja.</p>
+      </div>
+
+      <div class="alert alert-warn">
+        <div class="alert-icon">⚠️</div>
+        <div class="alert-text">
+          <strong>Tidak bisa direfund (kecuali pertimbangan khusus):</strong>
+          Pelanggan dengan kontrak habis · Pelanggan buku · Pelanggan Live Class · Diskon 70% ke atas · Berlangganan 1 tahun.
+        </div>
+      </div>
+
+      <div class="alert alert-tip">
+        <div class="alert-icon">✅</div>
+        <div class="alert-text">
+          <strong>Yang bisa refund:</strong>
+          User terdaftar resmi di Smartick dengan langganan aktif, atau user yang tidak sengaja transfer tanpa ditukarkan layanan apapun.
+        </div>
+      </div>
+
+      <div class="flowchart-wrapper">
+        <div class="flowchart-header">
+          <span style="font-size:18px;">↩️</span>
+          <h3>Alur Proses Refund</h3>
+          <span class="fh-sub">6 langkah · SLA: 3 hari kerja</span>
+        </div>
+        <div class="flowchart-body">
+          <div class="flow">
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Request dari User</h4>
+                <p>CS menerima permintaan refund, memastikan syarat terpenuhi, lalu memberikan template data via WA: nama user/anak, email Smartick, paket langganan, alasan refund, nominal, rekening tujuan. (Jika alasan tidak lanjut: tambahkan tanggal kontrak.)</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Team CS</span><span class="badge badge-gray">SLA: 09.00–17.00</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Validasi Awal</h4>
+                <p>Cek status langganan dan histori pembayaran via WA atau email dari Xendit. Jika tidak sesuai: ditolak.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Team CS</span><span class="badge badge-orange">SLA: 60 menit</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Pengajuan Refund ke ClickUp</h4>
+                <p>CS melampirkan form refund di ClickUp.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Team CS</span><span class="badge badge-orange">SLA: maks. 1 hari kerja</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Validasi & Approval Finance</h4>
+                <p>Finance menghitung nominal refund berdasarkan kebijakan prorata, masa penggunaan, dan biaya admin. Cek kesesuaian nominal, kelengkapan data. Jika tidak sesuai, dikembalikan ke CS.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance (Sarah S.)</span><span class="badge badge-orange">SLA: maks. 1 hari kerja</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">5</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Pengajuan Monit</h4>
+                <p>Finance membuat pengajuan di Monit dengan melampirkan form refund dan perhitungan refund. Proses pembayaran H+1 dari tanggal pengajuan.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance</span><span class="badge badge-orange">SLA: 1×24 jam</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num" style="background:var(--accent-green);">6</div></div>
+              <div class="flow-content" style="border-color:var(--accent-green);">
+                <h4>✅ Konfirmasi & Release</h4>
+                <p>COO melakukan release refund. Finance mengirimkan bukti transfer ke CS untuk diteruskan ke user.</p>
+                <div class="flow-meta"><span class="badge badge-purple">Release: COO</span><span class="badge badge-green">Konfirmasi: Segera</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE: SOP REIMBURSEMENT
+  ═══════════════════════════════════════════ -->
+  <div class="page" id="page-sop-reimbursement">
+    <div class="page-inner">
+      <div class="section-header">
+        <div class="section-tag">SOP Finance</div>
+        <h2>💸 SOP Reimbursement</h2>
+        <p>Klaim penggantian biaya operasional karyawan secara jelas, cepat, dan tepat.</p>
+      </div>
+
+      <div class="alert alert-warn">
+        <div class="alert-icon">⏰</div>
+        <div class="alert-text">
+          <strong>Batas waktu pengajuan: 7 hari setelah transaksi.</strong>
+          Lebih dari 7 hari tidak dapat diproses. Limit per transaksi: Rp 1.000.000. Pembelian aset tidak bisa menggunakan reimbursement.
+        </div>
+      </div>
+
+      <div class="alert alert-info">
+        <div class="alert-icon">📋</div>
+        <div class="alert-text">
+          <strong>Pengajuan via Monit.</strong>
+          Jika ada lebih dari 1 invoice, gabungkan dalam 1 transaksi. Pastikan data sesuai dengan invoice sebelum submit.
+        </div>
+      </div>
+
+      <div class="flowchart-wrapper">
+        <div class="flowchart-header">
+          <span style="font-size:18px;">💸</span>
+          <h3>Alur Reimbursement</h3>
+          <span class="fh-sub">4 langkah</span>
+        </div>
+        <div class="flowchart-body">
+          <div class="flow">
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Pengajuan via Monit</h4>
+                <p>Karyawan isi: tanggal (sesuai invoice), jenis biaya, nominal, deskripsi, rekening tujuan, upload invoice/bukti transaksi. Jika ada beberapa invoice, gabungkan dalam 1 transaksi (pisahkan jenis biaya masing-masing). Jika tidak ada invoice, konfirmasi ke Finance terlebih dahulu.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Karyawan</span><span class="badge badge-orange">Maks. 7 hari setelah transaksi</span><span class="badge badge-red">Limit: Rp 1 juta/transaksi</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Verifikasi & Approval</h4>
+                <p>Finance mengecek kesesuaian kebutuhan, kewajaran biaya, dan validitas dokumen. Jika tidak sesuai atau dokumen tidak valid: pengajuan direject.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance</span><span class="badge badge-orange">SLA: Maks. 3 hari kerja</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Proses Pembayaran</h4>
+                <p>Finance memproses pembayaran reimbursement ke rekening karyawan.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance</span><span class="badge badge-orange">SLA: Maks. 3 hari kerja setelah approval</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num" style="background:var(--accent-green);">4</div></div>
+              <div class="flow-content" style="border-color:var(--accent-green);">
+                <h4>✅ Arsip</h4>
+                <p>Semua dokumen fisik reimburse diserahkan ke Finance untuk diarsipkan.</p>
+                <div class="flow-meta"><span class="badge badge-green">PIC: Finance</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE: SOP PROCUREMENT
+  ═══════════════════════════════════════════ -->
+  <div class="page" id="page-sop-procurement">
+    <div class="page-inner">
+      <div class="section-header">
+        <div class="section-tag">SOP Finance</div>
+        <h2>🛒 SOP Procurement</h2>
+        <p>Pengadaan barang dan jasa secara efisien, transparan, dan akuntabel.</p>
+      </div>
+
+      <div class="alert alert-info">
+        <div class="alert-icon">📅</div>
+        <div class="alert-text">
+          <strong>Siklus Procurement:</strong>
+          Budget dikunci tgl 20 → Approval tgl 28/30 → Top Up Monit tgl 1 → Rekap & Audit tgl 15 bulan berikutnya.
+        </div>
+      </div>
+
+      <div class="flowchart-wrapper">
+        <div class="flowchart-header">
+          <span style="font-size:18px;">🛒</span>
+          <h3>Alur Procurement</h3>
+          <span class="fh-sub">7 langkah · Siklus Bulanan</span>
+        </div>
+        <div class="flowchart-body">
+          <div class="flow">
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Budgeting</h4>
+                <p>Finance dan COO mengunci budget per bulan.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: COO</span><span class="badge badge-orange">Deadline: Tgl 20 bulan sebelumnya</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Pengajuan Rencana Pengeluaran</h4>
+                <p>Leads menerima pos budget divisi masing-masing, lalu berkoordinasi membuat daftar rencana pengeluaran (biaya rutin + project). Jika melebihi budget, koordinasi dengan COO dan CEO untuk approval.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: COO, CMO, Head of Eng.</span><span class="badge badge-orange">Deadline: Tgl 28/30 bulan sebelumnya</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Transfer & Top Up Monit</h4>
+                <p>Top Up Monit sesuai budget bulan tersebut, distribusikan ke account/kartu sesuai channel transaksi yang dibutuhkan.</p>
+                <div class="flow-meta"><span class="badge badge-orange">Tanggal 1 bulan berjalan</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Procurement Request</h4>
+                <p>HRGA dan Finance meeting budgeting dengan masing-masing divisi, lalu rencana pembelian disubmit melalui spreadsheet Procurement.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: HRGA & Finance</span><span class="badge badge-gray">Platform: Spreadsheet Procurement</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">5</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Review & Konfirmasi Vendor</h4>
+                <p>Tim GA melakukan pencarian vendor/toko yang sesuai.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Tim GA</span><span class="badge badge-orange">Maks. 7 hari (vendor baru: maks. 1 bulan)</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">6</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Pembelian</h4>
+                <p>Pembelian dilakukan oleh Tim GA menggunakan kartu HRGA. Jika budget kurang, penambahan dana melalui approval COO dan CEO.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Tim GA</span><span class="badge badge-gray">Kartu: HRGA</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num" style="background:var(--accent-green);">7</div></div>
+              <div class="flow-content" style="border-color:var(--accent-green);">
+                <h4>✅ Rekap & Audit</h4>
+                <p>Finance merekap transaksi akhir bulan. Pos anggaran dievaluasi oleh COO dan Finance.</p>
+                <div class="flow-meta"><span class="badge badge-green">PIC: Finance + COO</span><span class="badge badge-orange">Deadline: Tgl 15 bulan berikutnya</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE: SOP INVOICE VENDOR
+  ═══════════════════════════════════════════ -->
+  <div class="page" id="page-sop-invoice">
+    <div class="page-inner">
+      <div class="section-header">
+        <div class="section-tag">SOP Finance</div>
+        <h2>🧾 SOP Invoice Vendor Jasa & Sewa</h2>
+        <p>Prosedur pembuatan, verifikasi, dan pembayaran invoice atas transaksi jasa dan sewa dengan kepatuhan pajak.</p>
+      </div>
+
+      <div class="alert alert-info">
+        <div class="alert-icon">🧾</div>
+        <div class="alert-text">
+          <strong>Dokumen yang Dibutuhkan:</strong>
+          Invoice dari vendor · Kontrak/SPK · NPWP (badan usaha) atau NIK (individu) · Data rekening vendor · Email untuk bukti potong.
+        </div>
+      </div>
+
+      <div class="links-section" style="margin-bottom:24px;">
+        <h3>🧮 Tabel Perhitungan Pajak</h3>
+        <table class="info-table">
+          <thead><tr><th>Tipe Vendor</th><th>Jenis Transaksi</th><th>Pajak</th><th>Tarif</th></tr></thead>
+          <tbody>
+            <tr><td>Badan Usaha</td><td>Jasa</td><td>PPh 23</td><td><span class="badge badge-orange">2%</span></td></tr>
+            <tr><td>Badan Usaha</td><td>Sewa</td><td>PPh 4 ayat 2</td><td><span class="badge badge-orange">10%</span></td></tr>
+            <tr><td>Individu</td><td>Jasa / Sewa</td><td>PPh 21</td><td><span class="badge badge-orange">2,5%</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flowchart-wrapper">
+        <div class="flowchart-header">
+          <span style="font-size:18px;">🧾</span>
+          <h3>Alur Invoice Vendor</h3>
+          <span class="fh-sub">7 langkah</span>
+        </div>
+        <div class="flowchart-body">
+          <div class="flow">
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Pengajuan Invoice</h4>
+                <p>Vendor mengirimkan invoice beserta dokumen pendukung.</p>
+                <div class="flow-meta"><span class="badge badge-gray">PIC: Vendor / User</span><span class="badge badge-orange">SLA: 1–3 hari kerja</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Identifikasi Vendor & Data Pajak</h4>
+                <p>Badan usaha: NPWP. Individu: NIK.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance (Sarah)</span><span class="badge badge-orange">SLA: 1 hari kerja</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Perhitungan Pajak</h4>
+                <p>Hitung PPh sesuai tipe vendor (lihat tabel di atas). Perhatikan DPP dan PPh secara detail agar tidak selisih.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance (Sarah)</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Verifikasi & Approval</h4>
+                <p>Cek nominal, pajak, dan kesesuaian invoice. Perhatikan DPP dan PPh secara detail.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance (Sarah)</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">5</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Pembayaran ke Vendor</h4>
+                <p>Bayar ke vendor net setelah pajak (perusahaan memotong PPh, vendor menerima nilai dikurangi pajak).</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance (Sarah)</span><span class="badge badge-gray">Transfer sesuai termin</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">6</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Bukti Potong</h4>
+                <p>Buat dan kirim bukti potong ke vendor.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance (Sarah)</span><span class="badge badge-orange">Maks. akhir bulan berikutnya</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num" style="background:var(--accent-green);">7</div></div>
+              <div class="flow-content" style="border-color:var(--accent-green);">
+                <h4>✅ Pencatatan & Arsip</h4>
+                <p>Jurnal dan arsip semua dokumen terkait transaksi.</p>
+                <div class="flow-meta"><span class="badge badge-green">PIC: Finance (Sarah)</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE: SOP PAYROLL
+  ═══════════════════════════════════════════ -->
+  <div class="page" id="page-sop-payroll">
+    <div class="page-inner">
+      <div class="section-header">
+        <div class="section-tag">SOP Finance</div>
+        <h2>💰 SOP Payroll</h2>
+        <p>Siklus penggajian bulanan yang akurat dan tepat waktu. Cut-off: tgl 21 bulan berjalan s/d tgl 20 bulan berikutnya.</p>
+      </div>
+
+      <div class="alert alert-warn">
+        <div class="alert-icon">📅</div>
+        <div class="alert-text">
+          <strong>Cut-off Gaji:</strong> Tgl 21 s/d 20 bulan berikutnya. Semua data lembur setelah tgl 20 masuk ke periode berikutnya. Gaji dirilis tgl 24/25.
+        </div>
+      </div>
+
+      <div class="links-section" style="margin-bottom:24px;">
+        <h3>⏱️ Komponen Lembur (ManPower)</h3>
+        <table class="info-table">
+          <thead><tr><th>Jenis Lembur</th><th>Ketentuan</th><th>Rate</th></tr></thead>
+          <tbody>
+            <tr><td>Weekend Online</td><td>Min. 2 jam</td><td><span class="badge badge-blue">Rp 50.000</span></td></tr>
+            <tr><td>Weekend Offline (Sehari)</td><td>Full day</td><td><span class="badge badge-blue">Rp 150.000</span></td></tr>
+            <tr><td>Weekend Offline (Setengah hari)</td><td>Half day</td><td><span class="badge badge-blue">Rp 75.000</span></td></tr>
+            <tr><td>Weekend CS</td><td>Min. 4 jam</td><td><span class="badge badge-blue">Rp 62.500/hari</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="flowchart-wrapper">
+        <div class="flowchart-header">
+          <span style="font-size:18px;">💰</span>
+          <h3>Alur Payroll Bulanan</h3>
+          <span class="fh-sub">7 langkah · Tgl 20–30</span>
+        </div>
+        <div class="flowchart-body">
+          <div class="flow">
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Submit & Approval Lembur</h4>
+                <p>Project Owner mengisi dan submit form lembur di Google Sheet. HR memverifikasi dan approval.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Septi (HR)</span><span class="badge badge-orange">Periode: Tgl 21–20 bulan berikutnya</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Pengumpulan Data Karyawan</h4>
+                <p>Kumpulkan data karyawan baru, karyawan resign, freelancer, dan rekap lembur.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Septi</span><span class="badge badge-gray">Saat onboarding</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Perhitungan Payroll</h4>
+                <p>Hitung: Gaji Bulanan/Prorata · Lembur (ManPower) · BPJS TK · BPJS Kesehatan (via eDabu & SIPP) · PPh 21 (kalkulator gross up). Freelance project: user wajib memberikan laporan pencapaian target pada tgl 20.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance (Sarah)</span><span class="badge badge-orange">Dimulai Tgl 20–24</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Persiapan Slip Gaji</h4>
+                <p>Pembuatan dan distribusi slip gaji serta bukti potong freelance via email.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance (Sarah)</span><span class="badge badge-orange">Tgl 24–25</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">5</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Review & Request Gaji</h4>
+                <p>Review hasil perhitungan payroll, slip gaji, bukti potong, dan Request BNI Direct.</p>
+                <div class="flow-meta"><span class="badge badge-purple">PIC: Sarah + Barry</span><span class="badge badge-orange">Tgl 24</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">6</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Rilis Pembayaran Gaji</h4>
+                <p>Gaji dirilis ke seluruh karyawan.</p>
+                <div class="flow-meta"><span class="badge badge-purple">PIC: Bu Galih</span><span class="badge badge-orange">Tgl 24/25</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num" style="background:var(--accent-green);">7</div></div>
+              <div class="flow-content" style="border-color:var(--accent-green);">
+                <h4>✅ Pencatatan Akuntansi</h4>
+                <p>Jurnal dan pencatatan biaya gaji ke sistem akuntansi.</p>
+                <div class="flow-meta"><span class="badge badge-green">PIC: Finance (Sarah)</span><span class="badge badge-orange">Tgl 25–30</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end .main -->
+
+<script>
+  function showPage(id, navEl) {
+    // Hide all pages
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    // Show target
+    const target = document.getElementById('page-' + id);
+    if (target) target.classList.add('active');
+
+    // Update nav active state
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    if (navEl) {
+      navEl.classList.add('active');
+    } else {
+      // Find by onclick
+      document.querySelectorAll('.nav-item').forEach(n => {
+        if (n.getAttribute('onclick') && n.getAttribute('onclick').includes("'" + id + "'")) {
+          n.classList.add('active');
+        }
+      });
+    }
+
+    // Update breadcrumb
+    const labels = {
+      'home': 'Home',
+      'links': 'Link Penting',
+      'sop-hiring': 'SOP Hiring',
+      'sop-onboarding': 'SOP Onboarding',
+      'sop-dokumen': 'SOP Surat & Dokumen',
+      'sop-refund': 'SOP Refund',
+      'sop-reimbursement': 'SOP Reimbursement',
+      'sop-procurement': 'SOP Procurement',
+      'sop-invoice': 'SOP Invoice Vendor',
+      'sop-payroll': 'SOP Payroll',
+    };
+    document.getElementById('breadcrumb-current').textContent = labels[id] || id;
+
+    // Scroll to top
+    window.scrollTo(0, 0);
+
+    // Close sidebar on mobile
+    if (window.innerWidth <= 768) {
+      document.getElementById('sidebar').classList.remove('open');
+    }
+  }
+
+  function switchTab(btn, targetId) {
+    const parent = btn.closest('.page-inner') || btn.closest('.page') || document;
+    // Reset all tab buttons in this group
+    btn.closest('.tabs').querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    // Find tab contents that are siblings
+    const tabsEl = btn.closest('.tabs');
+    const container = tabsEl.parentElement;
+    container.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+    const target = document.getElementById(targetId);
+    if (target) target.classList.add('active');
+  }
+
+  function toggleCollapsible(el) {
+    el.closest('.collapsible').classList.toggle('open');
+  }
+
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+  }
+</script>
+</body>
+</html>
