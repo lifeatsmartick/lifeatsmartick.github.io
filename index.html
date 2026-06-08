@@ -742,7 +742,7 @@
         <div style="font-size:11px;color:var(--gray-400);font-weight:500;">Indonesia</div>
       </div>
     </div>
-    <div class="sidebar-logo-text" style="margin-top:12px;">Smartick Indonesia</div>
+    <div class="sidebar-logo-text" style="margin-top:12px;">Life at Smartick</div>
   </div>
 
   <div class="sidebar-section">
@@ -773,11 +773,17 @@
     <a class="nav-item" onclick="showPage('sop-reimbursement', this)">
       <span class="nav-icon">💸</span> Reimbursement
     </a>
+    <a class="nav-item" onclick="showPage('sop-reimburse-kacamata', this)">
+      <span class="nav-icon">👓</span> Reimburse Kacamata
+    </a>
     <a class="nav-item" onclick="showPage('sop-procurement', this)">
       <span class="nav-icon">🛒</span> Procurement
     </a>
     <a class="nav-item" onclick="showPage('sop-invoice', this)">
-      <span class="nav-icon">🧾</span> Invoice Vendor
+      <span class="nav-icon">📥</span> Invoice Masuk
+    </a>
+    <a class="nav-item" onclick="showPage('sop-invoice-keluar', this)">
+      <span class="nav-icon">📤</span> Invoice Keluar
     </a>
     <a class="nav-item" onclick="showPage('sop-payroll', this)">
       <span class="nav-icon">💰</span> Payroll
@@ -815,7 +821,7 @@
     <div class="hero">
       <div class="hero-inner">
         <div class="hero-tag">Internal Wiki</div>
-        <h1>Life at <span>Smartick Indonesia</span> 👋</h1>
+        <h1>Life at <span>Smartick</span> Indonesia 👋</h1>
         <p class="hero-sub">Semua yang lo butuhkan soal cara kerja di sini: SOP, link penting, alur proses — tersusun rapi biar gampang dicari.</p>
 
         <div style="margin-bottom:12px;font-size:12px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--gray-500);">Quick Access</div>
@@ -826,7 +832,7 @@
           </a>
           <a class="quick-link-card" onclick="showPage('sop-cuti', document.querySelector('[onclick*=cuti]'))">
             <div class="ql-icon">🏖️</div>
-            <div class="ql-text"><strong>SOP Cuti</strong><span>Jenis & alur pengajuan</span></div>
+            <div class="ql-text"><strong>SOP Cuti</strong><span>Jenis cuti & cara pengajuan</span></div>
           </a>
           <a class="quick-link-card" onclick="showPage('sop-reimbursement', document.querySelector('[onclick*=reimbursement]'))">
             <div class="ql-icon">💸</div>
@@ -891,6 +897,12 @@
             <p>Klaim biaya operasional karyawan dengan batas 7 hari setelah transaksi.</p>
             <div class="card-arrow">Lihat SOP →</div>
           </div>
+          <div class="card" onclick="showPage('sop-reimburse-kacamata', null)">
+            <div class="card-icon" style="background:#e0f2fe;">👓</div>
+            <h3>Reimburse Kacamata</h3>
+            <p>Fasilitas penggantian biaya kacamata bagi karyawan tetap, maks. Rp 1.000.000/tahun.</p>
+            <div class="card-arrow">Lihat SOP →</div>
+          </div>
           <div class="card" onclick="showPage('sop-procurement', null)">
             <div class="card-icon" style="background:#f3e8ff;">🛒</div>
             <h3>SOP Procurement</h3>
@@ -898,9 +910,15 @@
             <div class="card-arrow">Lihat SOP →</div>
           </div>
           <div class="card" onclick="showPage('sop-invoice', null)">
-            <div class="card-icon" style="background:#ecfdf5;">🧾</div>
-            <h3>SOP Invoice Vendor</h3>
-            <p>Pembayaran invoice jasa & sewa dengan penghitungan pajak PPh yang benar.</p>
+            <div class="card-icon" style="background:#ecfdf5;">📥</div>
+            <h3>SOP Invoice Masuk</h3>
+            <p>Verifikasi dan pembayaran invoice dari vendor jasa & sewa dengan kepatuhan pajak.</p>
+            <div class="card-arrow">Lihat SOP →</div>
+          </div>
+          <div class="card" onclick="showPage('sop-invoice-keluar', null)">
+            <div class="card-icon" style="background:#fef9c3;">📤</div>
+            <h3>SOP Invoice Keluar</h3>
+            <p>Pembuatan dan pengiriman invoice kepada sekolah, brand, dan lembaga mitra.</p>
             <div class="card-arrow">Lihat SOP →</div>
           </div>
           <div class="card" onclick="showPage('sop-payroll', null)">
@@ -969,7 +987,7 @@
           <a class="link-item" href="https://cash.monitpay.com/login" target="_blank">
             <span class="link-icon">💳</span> Monit (Pembayaran)
           </a>
-          <a class="link-item" href="https://docs.google.com/spreadsheets/d/1wepLNmngTNPC8XERKWS1U4Bk4cbvlonDE6PBjrFDc50/edit?usp=sharing" target="_blank">
+          <a class="link-item" href="https://app.clickup.com/90181448152/form/90180049430828990603" target="_blank">
             <span class="link-icon">📋</span> Form Refund
           </a>
         </div>
@@ -1530,7 +1548,7 @@
         <div class="alert-icon">⚠️</div>
         <div class="alert-text">
           <strong>Tidak bisa direfund (kecuali pertimbangan khusus):</strong>
-          Pelanggan dengan kontrak habis · Pelanggan buku · Pelanggan Live Class · Diskon 70% ke atas · Berlangganan 1 tahun.
+          Pelanggan dengan kontrak yang sudah habis · Pelanggan buku · Pelanggan Live Class · Penerima diskon 70% ke atas.
         </div>
       </div>
 
@@ -1538,7 +1556,7 @@
         <div class="alert-icon">✅</div>
         <div class="alert-text">
           <strong>Yang bisa refund:</strong>
-          User terdaftar resmi di Smartick dengan langganan aktif, atau user yang tidak sengaja transfer tanpa ditukarkan layanan apapun.
+          User terdaftar resmi di Smartick dengan langganan aktif (termasuk berlangganan 1 tahun), atau user yang tidak sengaja transfer tanpa ditukarkan layanan apapun.
         </div>
       </div>
 
@@ -1787,14 +1805,14 @@
   </div>
 
   <!-- ═══════════════════════════════════════════
-       PAGE: SOP INVOICE VENDOR
+       PAGE: SOP INVOICE MASUK
   ═══════════════════════════════════════════ -->
   <div class="page" id="page-sop-invoice">
     <div class="page-inner">
       <div class="section-header">
         <div class="section-tag">SOP Finance</div>
-        <h2>🧾 SOP Invoice Vendor Jasa & Sewa</h2>
-        <p>Prosedur pembuatan, verifikasi, dan pembayaran invoice atas transaksi jasa dan sewa dengan kepatuhan pajak.</p>
+        <h2>📥 SOP Invoice Masuk</h2>
+        <p>Prosedur verifikasi dan pembayaran invoice atas transaksi jasa dan sewa dari vendor, termasuk kepatuhan perpajakan.</p>
       </div>
 
       <div class="alert alert-info">
@@ -1819,8 +1837,8 @@
 
       <div class="flowchart-wrapper">
         <div class="flowchart-header">
-          <span style="font-size:18px;">🧾</span>
-          <h3>Alur Invoice Vendor</h3>
+          <span style="font-size:18px;">📥</span>
+          <h3>Alur Invoice Masuk</h3>
           <span class="fh-sub">7 langkah</span>
         </div>
         <div class="flowchart-body">
@@ -1891,6 +1909,274 @@
 
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE: SOP INVOICE KELUAR
+  ═══════════════════════════════════════════ -->
+  <div class="page" id="page-sop-invoice-keluar">
+    <div class="page-inner">
+      <div class="section-header">
+        <div class="section-tag">SOP Finance</div>
+        <h2>📤 SOP Invoice Keluar</h2>
+        <p>Prosedur pembuatan dan pengiriman invoice kepada sekolah, brand, dan lembaga mitra secara akurat dan tepat waktu.</p>
+      </div>
+
+      <div class="alert alert-info">
+        <div class="alert-icon">📋</div>
+        <div class="alert-text">
+          <strong>Dokumen yang Dibutuhkan:</strong>
+          Kontrak MOU/SPK · Periode penagihan · Termin pembayaran · NPWP (badan usaha) · Jumlah siswa aktif (untuk invoice bulanan).
+        </div>
+      </div>
+
+      <div class="alert alert-warn">
+        <div class="alert-icon">📅</div>
+        <div class="alert-text">
+          <strong>Follow-up Pembayaran:</strong> Dilakukan H-7 sebelum jatuh tempo, tepat di hari jatuh tempo, dan H+7 jika belum dibayar.
+        </div>
+      </div>
+
+      <div class="flowchart-wrapper">
+        <div class="flowchart-header">
+          <span style="font-size:18px;">📤</span>
+          <h3>Alur Invoice Keluar</h3>
+          <span class="fh-sub">8 langkah</span>
+        </div>
+        <div class="flowchart-body">
+          <div class="flow">
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>MOU Diterima</h4>
+                <p>Finance menerima dasar penagihan sesuai yang tercantum pada MOU atau SPK.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: HRGA & Finance</span><span class="badge badge-orange">SLA: Maks. 1 hari kerja</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Verifikasi Data Tagihan</h4>
+                <p>Finance memeriksa kelengkapan dokumen, periode penagihan, termin pembayaran, harga per siswa (jika berlaku), dan data dari pihak sekolah/brand.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance</span><span class="badge badge-orange">SLA: Maks. 1 hari kerja</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Pembuatan Invoice</h4>
+                <p>Untuk skema bulanan, Finance menghitung nilai tagihan berdasarkan jumlah siswa aktif dan tarif berlaku, lalu membuat invoice sesuai termin MOU.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance</span><span class="badge badge-orange">SLA: Maks. 1 hari kerja</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Review & Approval</h4>
+                <p>Finance, User, dan COO melakukan pengecekan akhir atas nominal, periode layanan, termin, dan informasi penagihan. Invoice diproses tanda tangan digital via Privy.</p>
+                <div class="flow-meta"><span class="badge badge-purple">PIC: COO, Finance, User</span><span class="badge badge-orange">SLA: Maks. 2 hari kerja</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">5</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Pengiriman Invoice</h4>
+                <p>Invoice yang telah ditandatangani dikirim kepada pihak sekolah/brand/lembaga terkait.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance / User</span><span class="badge badge-orange">Maks. 1 hari kerja setelah TTD</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">6</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Monitoring & Konfirmasi Pembayaran</h4>
+                <p>Finance melakukan monitoring berdasarkan jatuh tempo. Follow up: H-7 → hari jatuh tempo → H+7 jika belum dibayar.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance</span><span class="badge badge-orange">Follow up H-7 / jatuh tempo / H+7</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">7</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Pembuatan & Pengiriman Receipt</h4>
+                <p>User request receipt ke Finance via ClickUp. Finance membuat receipt berdasarkan pembayaran diterima, diproses TTD digital via Privy. User mengirimkan ke pihak terkait.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance / User</span><span class="badge badge-orange">Maks. 3 hari kerja setelah dana diterima</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num" style="background:var(--accent-green);">8</div></div>
+              <div class="flow-content" style="border-color:var(--accent-green);">
+                <h4>✅ Pengarsipan Dokumen</h4>
+                <p>Seluruh dokumen invoice, receipt, bukti pembayaran, dan dokumen pendukung diarsipkan secara digital.</p>
+                <div class="flow-meta"><span class="badge badge-green">PIC: Finance</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       PAGE: SOP REIMBURSE KACAMATA
+  ═══════════════════════════════════════════ -->
+  <div class="page" id="page-sop-reimburse-kacamata">
+    <div class="page-inner">
+      <div class="section-header">
+        <div class="section-tag">SOP Finance</div>
+        <h2>👓 SOP Reimburse Kacamata</h2>
+        <p>Fasilitas penggantian biaya pembelian kacamata bagi karyawan tetap sesuai ketentuan perusahaan.</p>
+      </div>
+
+      <!-- STAT CARDS -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px;margin-bottom:20px;">
+        <div style="background:var(--blue-pale);border:1px solid var(--blue-light);border-radius:var(--radius);padding:16px;text-align:center;">
+          <div style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:var(--blue-primary);">Rp 1 jt</div>
+          <div style="font-size:12px;font-weight:700;color:var(--gray-600);">Limit per tahun</div>
+        </div>
+        <div style="background:var(--blue-pale);border:1px solid var(--blue-light);border-radius:var(--radius);padding:16px;text-align:center;">
+          <div style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:var(--blue-primary);">1×</div>
+          <div style="font-size:12px;font-weight:700;color:var(--gray-600);">Klaim per tahun kalender</div>
+        </div>
+        <div style="background:var(--blue-pale);border:1px solid var(--blue-light);border-radius:var(--radius);padding:16px;text-align:center;">
+          <div style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:var(--blue-primary);">30</div>
+          <div style="font-size:12px;font-weight:700;color:var(--gray-600);">Hari maks. pengajuan</div>
+          <div style="font-size:11px;color:var(--gray-500);">sejak tanggal invoice</div>
+        </div>
+        <div style="background:#fef3c7;border:1px solid #fde68a;border-radius:var(--radius);padding:16px;text-align:center;">
+          <div style="font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;color:#92400e;">3 karyawan</div>
+          <div style="font-size:12px;font-weight:700;color:#92400e;">Limit per bulan</div>
+          <div style="font-size:11px;color:#a16207;">Cek slot dengan PIC dulu</div>
+        </div>
+      </div>
+
+      <div style="background:#fef9c3;border:1px solid #fde68a;border-radius:var(--radius);padding:12px 16px;margin-bottom:20px;font-size:13px;color:#713f12;">
+        <strong>📅 Tahun Berjalan:</strong> 1 Juni 2026 – 31 Mei 2027
+      </div>
+
+      <!-- SYARAT -->
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:20px;">
+        <div class="links-section" style="margin-bottom:0;">
+          <h3>✅ Yang Bisa Diklaim</h3>
+          <div style="font-size:13px;color:var(--gray-600);line-height:1.9;">
+            <p>👓 Kacamata minus</p>
+            <p>👓 Kacamata plus</p>
+            <p>👓 Kacamata silinder</p>
+            <p>🔲 Frame saja — jika frame rusak/patah sehingga kacamata tidak bisa dipakai (wajib lampirkan foto kerusakan)</p>
+          </div>
+        </div>
+        <div class="links-section" style="margin-bottom:0;">
+          <h3>❌ Yang Tidak Bisa Diklaim</h3>
+          <div style="font-size:13px;color:var(--gray-600);line-height:1.9;">
+            <p>🚫 Kacamata fashion/non-medis</p>
+            <p>🚫 Soft lens (medis/non-medis)</p>
+            <p>🚫 Sunglasses (kecuali ada lensa koreksi sesuai resep dokter)</p>
+            <p>🚫 Aksesoris kacamata</p>
+            <p>🚫 Freelancer & intern</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- DOKUMEN -->
+      <div class="links-section" style="margin-bottom:20px;">
+        <h3>📄 Dokumen yang Dibutuhkan</h3>
+        <div style="font-size:13px;color:var(--gray-600);line-height:1.9;">
+          <p>📋 Form Reimburse Kacamata (cetak, TTD karyawan + COO)</p>
+          <p>🧾 Invoice pembelian asli dari optik (nama toko, tanggal, nominal)</p>
+          <p>🏦 Struk pembayaran dari mesin EDC bank / Mobile Banking</p>
+          <p>🩺 Resep dokter mata atau hasil pemeriksaan mata terbaru</p>
+        </div>
+      </div>
+
+      <!-- FLOWCHART -->
+      <div class="flowchart-wrapper">
+        <div class="flowchart-header">
+          <span style="font-size:18px;">👓</span>
+          <h3>Alur Reimburse Kacamata</h3>
+          <span class="fh-sub">7 langkah · SLA total ~9 hari kerja</span>
+        </div>
+        <div class="flowchart-body">
+          <div class="flow">
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">1</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Pemeriksaan Mata & Pembelian Kacamata</h4>
+                <p>Karyawan melakukan pemeriksaan mata dan pembelian kacamata di optik atau fasilitas kesehatan yang sah. Cek ketersediaan slot klaim ke PIC terlebih dahulu (maks. 3 karyawan/bulan).</p>
+                <div class="flow-meta"><span class="badge badge-gray">PIC: Karyawan</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">2</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Pengumpulan & Submit Dokumen</h4>
+                <p>Karyawan menyiapkan dokumen, mengisi dan menandatangani lembar pengajuan reimburse kacamata, lalu mengirimkan semua dokumen pendukung melalui form yang tersedia.</p>
+                <div class="flow-meta"><span class="badge badge-gray">PIC: Karyawan</span><span class="badge badge-orange">Maks. 30 hari sejak pembelian</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">3</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Verifikasi Dokumen</h4>
+                <p>HRGA memeriksa kelengkapan dokumen dan memastikan karyawan belum menggunakan fasilitas reimburse kacamata di tahun berjalan.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: HRGA</span><span class="badge badge-orange">SLA: 2 hari kerja</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">4</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Approval COO</h4>
+                <p>COO memberikan persetujuan sesuai otorisasi yang berlaku.</p>
+                <div class="flow-meta"><span class="badge badge-purple">PIC: COO</span><span class="badge badge-orange">SLA: 2 hari kerja</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">5</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Verifikasi Finance</h4>
+                <p>Finance memverifikasi nominal reimburse sesuai limit (Rp 1.000.000) dan kebijakan perusahaan. Selisih di atas limit menjadi tanggungan karyawan.</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance</span><span class="badge badge-orange">SLA: 2 hari kerja</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num">6</div><div class="flow-line"></div></div>
+              <div class="flow-content">
+                <h4>Pembayaran Reimburse</h4>
+                <p>Finance memproses pembayaran ke rekening karyawan via Monit (agar bisa menyertakan bukti pendukung).</p>
+                <div class="flow-meta"><span class="badge badge-blue">PIC: Finance</span><span class="badge badge-orange">SLA: 2 hari kerja</span></div>
+              </div>
+            </div>
+
+            <div class="flow-step">
+              <div class="flow-left"><div class="flow-num" style="background:var(--accent-green);">7</div></div>
+              <div class="flow-content" style="border-color:var(--accent-green);">
+                <h4>✅ Arsip Dokumen</h4>
+                <p>Dokumen reimburse disimpan sebagai arsip perusahaan.</p>
+                <div class="flow-meta"><span class="badge badge-green">PIC: Finance & HRGA</span><span class="badge badge-orange">SLA: 1 hari kerja</span></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-warn">
+        <div class="alert-icon">⚠️</div>
+        <div class="alert-text"><strong>Perlu diperhatikan:</strong> Limit Rp 1.000.000 tidak dapat diakumulasikan atau diuangkan jika tidak digunakan. Jika sudah pernah klaim di tahun berjalan, pengajuan berikutnya baru bisa dilakukan di tahun kalender berikutnya.</div>
       </div>
     </div>
   </div>
@@ -2277,8 +2563,10 @@
       'sop-cuti': 'SOP Cuti',
       'sop-refund': 'SOP Refund',
       'sop-reimbursement': 'SOP Reimbursement',
+      'sop-reimburse-kacamata': 'Reimburse Kacamata',
       'sop-procurement': 'SOP Procurement',
-      'sop-invoice': 'SOP Invoice Vendor',
+      'sop-invoice': 'SOP Invoice Masuk',
+      'sop-invoice-keluar': 'SOP Invoice Keluar',
       'sop-payroll': 'SOP Payroll',
     };
     document.getElementById('breadcrumb-current').textContent = labels[id] || id;
