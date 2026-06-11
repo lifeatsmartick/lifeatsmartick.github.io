@@ -729,8 +729,45 @@
 </head>
 <body>
 
+<!-- ─── LOGIN OVERLAY ───────────────────────── -->
+<div id="login-overlay" style="position:fixed;inset:0;z-index:1000;background:linear-gradient(135deg, #0a1f35 0%, #0d3a6e 60%, #0e4a8a 100%);display:flex;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:var(--white);border-radius:var(--radius-lg);padding:40px;max-width:380px;width:100%;box-shadow:var(--shadow-lg);">
+    <div style="margin-bottom:24px;display:flex;flex-direction:column;align-items:center;text-align:center;">
+      <img src="Smartick-Blue.png" alt="Smartick Indonesia" style="width:160px;display:block;" />
+      <div class="sidebar-logo-text" style="margin-top:12px;color:var(--blue-dark);">Life at Smartick</div>
+    </div>
+
+    <h2 style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:800;color:var(--gray-900);margin-bottom:6px;">Masuk</h2>
+    <p style="font-size:13px;color:var(--gray-500);margin-bottom:20px;line-height:1.5;">Gunakan email dan password akun Smartick kamu.</p>
+
+    <div style="margin-bottom:14px;">
+      <label style="display:block;font-size:12px;font-weight:700;color:var(--gray-700);margin-bottom:6px;">Email</label>
+      <input type="email" id="login-email" placeholder="nama.kamu@smartick.id" style="width:100%;padding:10px 14px;border:1px solid var(--gray-300);border-radius:var(--radius);font-size:13.5px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;transition:border-color 0.2s;" onkeydown="if(event.key==='Enter')document.getElementById('login-password').focus()" />
+    </div>
+
+    <div style="margin-bottom:6px;">
+      <label style="display:block;font-size:12px;font-weight:700;color:var(--gray-700);margin-bottom:6px;">Password</label>
+      <input type="password" id="login-password" placeholder="••••••••" style="width:100%;padding:10px 14px;border:1px solid var(--gray-300);border-radius:var(--radius);font-size:13.5px;font-family:'Plus Jakarta Sans',sans-serif;outline:none;transition:border-color 0.2s;" onkeydown="if(event.key==='Enter')attemptLogin()" />
+    </div>
+
+    <div id="login-error" style="display:none;color:var(--accent-red);font-size:12px;font-weight:600;margin-bottom:10px;margin-top:8px;">
+      Email atau password salah. Coba lagi.
+    </div>
+
+    <button onclick="attemptLogin()" style="width:100%;margin-top:10px;padding:11px;background:var(--blue-primary);color:white;border:none;border-radius:var(--radius);font-size:14px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:background 0.2s;">
+      Masuk
+    </button>
+
+    <div style="margin-top:16px;font-size:11px;color:var(--gray-400);text-align:center;line-height:1.5;">
+      Password default: nama.depan + nama.belakang (tanpa titik) + 1234<br>
+      Contoh: barry.cavin@smartick.id → barrycavin1234
+    </div>
+  </div>
+</div>
+
+
 <!-- ─── SIDEBAR ─────────────────────────────── -->
-<nav class="sidebar" id="sidebar">
+<nav class="sidebar" id="sidebar" style="display:none;">
   <div class="sidebar-logo">
     <img src="Smartick-Blue.png" alt="Smartick Indonesia" style="width:160px;display:block;" />
   </div>
@@ -789,7 +826,7 @@
 </nav>
 
 <!-- ─── MAIN ────────────────────────────────── -->
-<div class="main">
+<div class="main" id="main-content" style="display:none;">
 
   <!-- TOPBAR -->
   <div class="topbar">
@@ -2154,6 +2191,50 @@
   function toggleSidebar() {
     document.getElementById('sidebar').classList.toggle('open');
   }
+
+  function attemptLogin() {
+    const emailInput = document.getElementById('login-email');
+    const passInput = document.getElementById('login-password');
+    const errorEl = document.getElementById('login-error');
+
+    const email = emailInput.value.trim().toLowerCase();
+    const password = passInput.value;
+
+    const emailMatch = email.match(/^([a-z0-9._-]+)@smartick\.id$/);
+
+    let valid = false;
+    if (emailMatch) {
+      const localPart = emailMatch[1].replace(/[._-]/g, '');
+      const expectedPassword = localPart + '1234';
+      if (password === expectedPassword) {
+        valid = true;
+      }
+    }
+
+    if (valid) {
+      try {
+        sessionStorage.setItem('lifeatsmartick_auth', '1');
+      } catch (e) {}
+      document.getElementById('login-overlay').style.display = 'none';
+      document.getElementById('sidebar').style.display = '';
+      document.getElementById('main-content').style.display = '';
+    } else {
+      errorEl.style.display = 'block';
+      passInput.value = '';
+      passInput.focus();
+    }
+  }
+
+  // Auto-login if already authenticated this session
+  (function checkAuth() {
+    try {
+      if (sessionStorage.getItem('lifeatsmartick_auth') === '1') {
+        document.getElementById('login-overlay').style.display = 'none';
+        document.getElementById('sidebar').style.display = '';
+        document.getElementById('main-content').style.display = '';
+      }
+    } catch (e) {}
+  })();
 </script>
 </body>
 </html>
